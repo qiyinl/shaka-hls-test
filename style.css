@@ -1,78 +1,195 @@
-*, *::before, *::after {
-    box-sizing: border-box;
+:root {
+  --bg-color: #0f0f0f;
+  /* YouTube Dark */
+  --surface-color: #0f0f0f;
+  --text-color: #ffffff;
+  --secondary-text: #aaaaaa;
+  --accent-color: #3ea6ff;
+  /* YouTube Blue-ish / Vimeo Blue */
+  --accent-hover: #268efc;
+  --input-bg: #121212;
+  --border-color: #303030;
+  --font-main: "Roboto", Arial, sans-serif;
+  --font-mono: "Fira Code", "Courier New", Courier, monospace;
 }
 
-html, body {
-    background-color: #ccc;
-    font-family:Arial, Helvetica, sans-serif;
-    font-size: 16px;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-.container {
-    width: 100%;
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 15px;
-    background-color: #fff;
+body {
+  margin: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-main);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4 {
-    text-align: center;
+/* Header & Controls */
+header {
+  background-color: rgba(15, 15, 15, 0.98);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0 1.5rem;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-label {
-    position: relative;
-    display: block;
-    padding-right: 120px;
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 200px;
 }
-label > input {
-    display: block;
-    width: 100%;
+
+.brand h1 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  color: #fff;
 }
-label > button {
-    position: absolute;
-    top: 0;
-    right: 0;
+
+.controls {
+  flex: 1;
+  max-width: 600px;
+  /* Centered search-bar like input */
+  display: flex;
+  gap: 0;
+  margin: 0 1rem;
 }
-label > input, label > button {
-    padding: 15px;
+
+input[type="text"] {
+  flex: 1;
+  background-color: var(--input-bg);
+  border: 1px solid var(--border-color);
+  border-right: none;
+  border-radius: 2px 0 0 2px;
+  color: white;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+input[type="text"]:focus {
+  border-color: #1c62b9;
+}
+
+button {
+  background-color: #222;
+  color: var(--secondary-text);
+  border: 1px solid var(--border-color);
+  border-radius: 0 2px 2px 0;
+  padding: 0 1.25rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+button:hover {
+  background-color: var(--accent-color);
+  /* Make it pop with blue */
+  color: #fff;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 8px rgba(62, 166, 255, 0.4);
+  /* Glow effect */
+}
+
+/* Main Player Area - Centered & Smaller */
+main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #0f0f0f;
+  /* Match bg not absolute black */
+  padding: 2rem 0;
+}
+
+.video-container {
+  width: 100%;
+  position: relative;
 }
 
 .videoWrap {
-    position: relative;
-    width: 100%;
-    height: auto;
+  width: 60%;
+  /* Reduced for user "30% smaller" request (approx 60-70%) */
+  max-width: 1000px;
+  /* Reasonable cap */
+  margin: 0 auto;
+  /* Centered */
+  aspect-ratio: 16 / 9;
+  position: relative;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #000;
 }
-.videoWrap::before {
-    content: "";
-    position: relative;
-    display: block;
-    padding-bottom: 56.25%;
+
+video {
+  width: 100%;
+  height: 100%;
+  background-color: black;
 }
-.videoWrap > video {
-    position: absolute;
-    display: block;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
+
+/* Terminal / Event Log - YouTube Description style */
+.terminal-section {
+  width: 60%;
+  /* Match video width */
+  max-width: 1000px;
+  margin: 1.5rem auto;
+  padding: 0;
+}
+
+.terminal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.terminal-header button {
+  background: transparent;
+  border: none;
+  color: var(--secondary-text);
+  font-size: 0.8rem;
+  padding: 0.5rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.terminal-header button:hover {
+  background: transparent;
+  color: var(--text-color);
 }
 
 #event-log {
-    width: 100%;
-    height: 300px;
-    overflow-y: scroll;
-    background-color: #f0f0f0;
-    font-family:'Courier New', Courier, monospace;
-    color: #333;
-    border: 1px solid #666;
+  background-color: #1e1e1e;
+  /* Card color */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  height: 300px;
+  overflow-y: auto;
+  padding: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: #e5e5e5;
+  box-shadow: none;
 }
-#event-log > div {
-    border-top: 1px solid #ddd;
-}
-fieldset > button {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    margin-top: 2px;
+
+#event-log>div {
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
